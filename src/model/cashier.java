@@ -6,11 +6,10 @@ import entity.CashierEntity;
 public class cashier
 {
     private static ArrayList<CashierEntity> DBcasshier = new ArrayList<>();
-    private static CashierEntity casshier=null;
-
+   
     public static void initialData()
     {
-        DBcasshier.add(new CashierEntity("ferry","admin", "admin"));
+        DBcasshier.add(new CashierEntity("123","123", "123"));
     }
 
     public static void create(CashierEntity newCasshier)
@@ -22,12 +21,13 @@ public class cashier
         return DBcasshier;
     }
 
-    public static CashierEntity getCashier(){
-        return casshier;
-    }
-
-    public static void setCashier(CashierEntity data)
+    public static CashierEntity findUsername(String username)
     {
-        cashier.casshier=data;
+        for (CashierEntity list : read()){
+            if (username.equals(list.getUsername())){
+                return list;
+            }
+        }
+        return null;
     }
 }
