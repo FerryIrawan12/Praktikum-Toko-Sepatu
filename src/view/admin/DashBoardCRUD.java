@@ -1,23 +1,15 @@
 package view.admin;
 import java.lang.Integer;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JTextField;
+
 import javax.swing.event.MouseInputListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.*;
 
 import controller.ShoesHikingController;
 import controller.ShoesWalkingController;
+import controller.view_controller;
 
 public class DashBoardCRUD extends JFrame {
     int row;
@@ -39,9 +31,9 @@ public class DashBoardCRUD extends JFrame {
     JLabel lblAdmin,lblNameHiking,lblNameWalking,lblSizeHiking,lblSizeWalking,
     lblPriceHiking,lblPriceWalking,lblHeightHiking,lblTypeWalking,lblShoesHikingLeft,lblShoesWalkingLeft;
     JTextField tfNameHiking,tfNameWalking,tfSizeHiking,tfSizeWalking,tfPriceHiking,
-    tfPriceWalking,tfTypeWalking,tfHeigthHiking;
+    tfPriceWalking,tfTypeWalking,tfWeigthHiking;
     JButton btnSaveHiking,btnSaveWalking,btnUpdateHiking,btnUpdateWalking,
-    btnDeleteHiking,btnDeleteWalking,btnClearAll;
+    btnDeleteHiking,btnDeleteWalking,btnClearAll,btnBacktoLogin;
     JComboBox boxSizeHiking,boxSizeWalking,boxSizeType;
   
     public DashBoardCRUD()
@@ -88,12 +80,63 @@ public class DashBoardCRUD extends JFrame {
             tfNameHiking.setText(listShoesHiking().getValueAt(index, 0).toString());
             tfSizeHiking.setText(listShoesHiking().getValueAt(index, 1).toString());
             tfPriceHiking.setText(listShoesHiking().getValueAt(index, 2).toString());
-            tfHeigthHiking.setText(listShoesHiking().getValueAt(index, 3).toString());
+            tfWeigthHiking.setText(listShoesHiking().getValueAt(index, 3).toString());
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 // TODO Auto-generated method stubss
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+              
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+        });
+       
+        scrollPaneWalking.setBounds(  315, 120, 230, 320);
+        tableWalking.setModel(listShoesWalking());
+        tableWalking.addMouseListener(new MouseInputListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int index=tableWalking.getSelectedRow();
+                row=index;
+                tfNameWalking.setText(listShoesWalking().getValueAt(index, 0).toString());
+                tfSizeWalking.setText(listShoesWalking().getValueAt(index, 1).toString());
+                tfPriceWalking.setText(listShoesWalking().getValueAt(index, 2).toString());
+                tfTypeWalking.setText(listShoesWalking().getValueAt(index, 3).toString());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // TODO Auto-generated method stub
                 
             }
 
@@ -126,11 +169,8 @@ public class DashBoardCRUD extends JFrame {
                 // TODO Auto-generated method stub
                 
             }
-
+            
         });
-       
-        scrollPaneWalking.setBounds(  315, 120, 230, 320);
-        tableWalking.setModel(listShoesWalking());
       
         add(scrollPaneWalking);
         add(scrollPaneHiking);
@@ -267,9 +307,9 @@ public class DashBoardCRUD extends JFrame {
         tfTypeWalking.setBounds(60, 260, 50, 20);
         tfTypeWalking.setFont(mainFontSmallLabel);
 
-        tfHeigthHiking=new JTextField();
-        tfHeigthHiking.setBounds(180, 260, 100, 20);
-        tfHeigthHiking.setFont(mainFontSmallLabel);
+        tfWeigthHiking=new JTextField();
+        tfWeigthHiking.setBounds(180, 260, 100, 20);
+        tfWeigthHiking.setFont(mainFontSmallLabel);
 
         //box
         String size[]={
@@ -313,29 +353,66 @@ public class DashBoardCRUD extends JFrame {
         //button Shoes Hiking
         btnSaveHiking=new JButton("ADD11");
         btnSaveHiking.setBounds(180, 300, 100, 20);
-        btnSaveHiking.setFont(mainFontButton); 
-        btnSaveHiking.addActionListener(new ActionListener()
-    {
+        btnSaveHiking.setFont(mainFontButton);
+        btnSaveHiking.setBackground(Color.LIGHT_GRAY);
+        btnSaveHiking.addMouseListener(new MouseInputListener() {
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                String shoesName=tfNameHiking.getText();
-                String shoesSize=tfSizeHiking.getText();
-                int shoesPrice=Integer.valueOf(tfPriceHiking.getText());
-                int shoesWeight=Integer.valueOf(tfHeigthHiking.getText());
-                _ShoesHiking.create(shoesName, shoesSize, shoesPrice, shoesWeight);
-                tableHiking.setModel((listShoesHiking()));
-            } catch (NumberFormatException ea) {
-                 JOptionPane.showMessageDialog(null,"input penulisan salah !","Warning !!!",JOptionPane.ERROR_MESSAGE); 
-            } 
-        }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    String shoesName=tfNameHiking.getText();
+                    String shoesSize=tfSizeHiking.getText();
+                    int shoesPrice=Integer.valueOf(tfPriceHiking.getText());
+                    int shoesWeight=Integer.valueOf(tfWeigthHiking.getText());
+                    _ShoesHiking.create(shoesName, shoesSize, shoesPrice, shoesWeight);
+                    tableHiking.setModel((listShoesHiking()));
+                } catch (NumberFormatException ea) {
+                    JOptionPane.showMessageDialog(null,"Something Wrong !","Information", JOptionPane.ERROR_MESSAGE);
+                } 
+            }
 
-    });
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+               btnSaveHiking.setBackground(Color.gray);
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnSaveHiking.setBackground(Color.LIGHT_GRAY);
+                
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+        });
      
         btnUpdateHiking=new JButton("UPDATE");
         btnUpdateHiking.setBounds(180, 330, 100, 20);
         btnUpdateHiking.setFont(mainFontButton);
+        btnUpdateHiking.setBackground(Color.lightGray);
         btnUpdateHiking.addMouseListener(new MouseInputListener() {
 
             @Override
@@ -344,11 +421,11 @@ public class DashBoardCRUD extends JFrame {
                 String shoesName=tfNameHiking.getText();
                 String shoesSize=tfSizeHiking.getText();
                 int shoesPrice=Integer.valueOf(tfPriceHiking.getText());
-                int shoesWeight=Integer.valueOf(tfHeigthHiking.getText());
+                int shoesWeight=Integer.valueOf(tfWeigthHiking.getText());
                 _ShoesHiking.update(row, shoesName, shoesSize, shoesPrice, shoesWeight);
                 tableHiking.setModel((listShoesHiking()));
               } catch (Exception ea) {
-                JOptionPane.showMessageDialog(null,"Fomat penulisan salah","Information", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Something Wrong !","Information", JOptionPane.ERROR_MESSAGE);
               }
             }
 
@@ -366,13 +443,13 @@ public class DashBoardCRUD extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                // TODO Auto-generated method stub
+               btnUpdateHiking.setBackground(Color.gray);
                 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                // TODO Auto-generated method stub
+                btnUpdateHiking.setBackground(Color.lightGray);
                 
             }
 
@@ -393,16 +470,17 @@ public class DashBoardCRUD extends JFrame {
         btnDeleteHiking=new JButton("DELETE");
         btnDeleteHiking.setBounds( 180, 360, 100, 20);
         btnDeleteHiking.setFont(mainFontButton);
+        btnDeleteHiking.setBackground(Color.LIGHT_GRAY);
         btnDeleteHiking.addMouseListener(new MouseInputListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
                     _ShoesHiking.delete(row);
-                    JOptionPane.showMessageDialog(null,"Hapus Buku Sukses","Information", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Delete Shoes Hiking Succes","Information", JOptionPane.INFORMATION_MESSAGE);
                     tableHiking.setModel((listShoesHiking()));
                 } catch (Exception ea) {
-                    JOptionPane.showMessageDialog(null,"Fomat penulisan salah","Information", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Something Wrong !","Information", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
@@ -421,13 +499,13 @@ public class DashBoardCRUD extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                // TODO Auto-generated method stub
+                btnDeleteHiking.setBackground(Color.gray);
                 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                // TODO Auto-generated method stub
+                btnDeleteHiking.setBackground(Color.LIGHT_GRAY);
                 
             }
 
@@ -449,6 +527,7 @@ public class DashBoardCRUD extends JFrame {
         btnSaveWalking=new JButton("ADD");
         btnSaveWalking.setBounds( 10, 300, 100, 20);
         btnSaveWalking.setFont(mainFontButton);
+        btnSaveWalking.setBackground(Color.lightGray);
         btnSaveWalking.addMouseListener(new MouseInputListener() {
 
             @Override
@@ -463,7 +542,7 @@ public class DashBoardCRUD extends JFrame {
 
                 }catch(Exception ea)
                 {
-                    JOptionPane.showMessageDialog(null,"input penulisan salah !","Warning !!!",JOptionPane.ERROR_MESSAGE); 
+                    JOptionPane.showMessageDialog(null,"Something Wrong !","Information", JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
@@ -482,13 +561,13 @@ public class DashBoardCRUD extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                // TODO Auto-generated method stub
+                btnSaveWalking.setBackground(Color.gray);
                 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                // TODO Auto-generated method stub
+                btnSaveWalking.setBackground(Color.lightGray);
                 
             }
 
@@ -509,18 +588,124 @@ public class DashBoardCRUD extends JFrame {
         btnUpdateWalking=new JButton("UPDATE");
         btnUpdateWalking.setBounds( 10, 330, 100, 20);
         btnUpdateWalking.setFont(mainFontButton);
+        btnUpdateWalking.setBackground(Color.LIGHT_GRAY);
+        btnUpdateWalking.addMouseListener(new MouseInputListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    String shoesName=tfNameWalking.getText();
+                    String shoesSize=tfSizeWalking.getText();
+                    int shoesPrice=Integer.valueOf(tfPriceWalking.getText());
+                    String shoesType=tfTypeWalking.getText();
+                    _ShoesWalkingC.update(row, shoesName, shoesSize, shoesPrice, shoesType);
+                    tableWalking.setModel((listShoesWalking()));
+                } catch (Exception ea) {
+                    JOptionPane.showMessageDialog(null,"Something Wrong !","Information", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnUpdateWalking.setBackground(Color.gray);
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnUpdateWalking.setBackground(Color.LIGHT_GRAY);
+                
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+        });
        
         btnDeleteWalking=new JButton("DELETE");
         btnDeleteWalking.setBounds( 10, 360, 100, 20);
         btnDeleteWalking.setFont(mainFontButton);
+        btnDeleteWalking.setBackground(Color.lightGray);
+        btnDeleteWalking.addMouseListener(new MouseInputListener() {
 
-        btnClearAll=new JButton("CLEAR ALL TEXT");
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            try {
+                _ShoesWalkingC.delete(row);
+                JOptionPane.showMessageDialog(null,"Delete Shoes Walking Succes","Information", JOptionPane.INFORMATION_MESSAGE);
+                tableWalking.setModel((listShoesWalking()));
+            } catch (Exception ea) {
+                JOptionPane.showMessageDialog(null,"Something Wrong !","Information", JOptionPane.ERROR_MESSAGE);
+            }
+                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnDeleteWalking.setBackground(Color.gray);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnDeleteWalking.setBackground(Color.lightGray);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+        });
+
+        btnClearAll=new JButton("CLEAR");
         btnClearAll.setFont(mainFontButton);
+        btnClearAll.setBackground(Color.lightGray);
         btnClearAll.setBounds(95,390, 100, 20);
         btnClearAll.addActionListener((e)->{
 
             tfTypeWalking.setText("");
-            tfHeigthHiking.setText("");
+            tfWeigthHiking.setText("");
             tfPriceHiking.setText("");
             tfPriceWalking.setText("");
             tfSizeHiking.setText("");
@@ -528,7 +713,17 @@ public class DashBoardCRUD extends JFrame {
             tfNameHiking.setText("");
             tfNameWalking.setText("");
         });
+
+        btnBacktoLogin=new JButton("back");
+        btnBacktoLogin.setFont(mainFontButton);
+        btnBacktoLogin.setBackground(Color.lightGray);
+        btnBacktoLogin.setBounds(10,10,40,20);
+        btnBacktoLogin.addActionListener((e)->{
+            new view_controller().toLogin();
+            setVisible(false);
+        }); 
         //addbutton
+        pnlKiri.add(btnBacktoLogin);
         pnlKiri.add(btnClearAll);
         pnlKiri.add(btnSaveWalking);
         pnlKiri.add(btnUpdateWalking);
@@ -545,7 +740,7 @@ public class DashBoardCRUD extends JFrame {
 
         //addTextField
         pnlKiri.add(tfTypeWalking);
-        pnlKiri.add(tfHeigthHiking);
+        pnlKiri.add(tfWeigthHiking);
         pnlKiri.add(tfPriceHiking);
         pnlKiri.add(tfPriceWalking);
         pnlKiri.add(tfSizeWalking);

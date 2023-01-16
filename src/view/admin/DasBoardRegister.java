@@ -24,6 +24,7 @@ public class DasBoardRegister extends JFrame {
         setTitle("Register");
         setSize(840,490);
         setLayout(null);
+        setLocationRelativeTo(null);
         setResizable(false);
         panelKiri();
         panelKanan();
@@ -62,7 +63,7 @@ public class DasBoardRegister extends JFrame {
         pnlKiri.setLayout(null);
 
         //label
-        lblWelcome=new JLabel("REGISTER ADMIN");
+        lblWelcome=new JLabel("Register Admin");
         lblWelcome.setFont(new Font("Segoe UI",Font.BOLD,32));
         lblWelcome.setBounds(55,50,280,50);
         lblWelcome.setForeground(Color.gray);
@@ -245,13 +246,13 @@ public class DasBoardRegister extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                // TODO Auto-generated method stub
+                btnSave.setBackground(Color.gray);
                 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                // TODO Auto-generated method stub
+                btnSave.setBackground(Color.lightGray);
                 
             }
 

@@ -20,9 +20,10 @@ public class DashBordLogin extends JFrame {
     {
         setTitle("Login");
         setSize(840,490);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setResizable(false);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panelkanan();
         panekKiri();
         setVisible(true);

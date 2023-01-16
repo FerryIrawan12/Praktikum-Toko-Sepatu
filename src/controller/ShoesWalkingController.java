@@ -10,7 +10,6 @@ import model.ShoesWalking;
 
 public class ShoesWalkingController extends ShoesWalkingInterface {
    
-  
 
    @Override
    public ArrayList<ShoesWalkingEntity> read() {
