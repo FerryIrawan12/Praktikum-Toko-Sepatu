@@ -1,13 +1,15 @@
 package view.admin;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.security.PublicKey;
-
+import java.awt.image.BufferedImage;
 import controller.LoginController;
 import controller.view_controller;
+import java.io.File;
 
 public class DashBordLogin extends JFrame {
     private LoginController _loginController=new LoginController();
@@ -18,6 +20,7 @@ public class DashBordLogin extends JFrame {
     {
         setTitle("Login");
         setSize(840,490);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setResizable(false);
         panelkanan();
@@ -33,6 +36,7 @@ public class DashBordLogin extends JFrame {
         JTextField jfUsername;
         JPasswordField pfPassword;
         JPanel pnlKanan;
+        JCheckBox cbPassword;
         
         //panel
         pnlKanan=new JPanel();
@@ -64,7 +68,7 @@ public class DashBordLogin extends JFrame {
 
         pfPassword=new JPasswordField();
         pfPassword.setFont(mainFont);
-        pfPassword.setBounds(26,320,400,25);
+        pfPassword.setBounds(26,320,380,25);
 
         //button
         btnSignIn=new JButton("SIGN IN");
@@ -81,14 +85,23 @@ public class DashBordLogin extends JFrame {
 
                 boolean cek=_loginController.loginProcces(username, password);
 
+                if (jfUsername.getText().equals("")&&pfPassword.getText().equals("")){
+
+                    JOptionPane.showMessageDialog(null,"Silahkan Input !","Warning !" ,JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
                     if (cek)
                     {
-                        new view_controller().toRegister();
+                        new view_controller().toMenuCrud();
+                        setVisible(false);
                     }
                     else
                     {
                         JOptionPane.showMessageDialog(null,"login gagal !","Warning !" ,JOptionPane.ERROR_MESSAGE);
                     }
+                }
+                   
             }
 
             @Override
@@ -171,7 +184,19 @@ public class DashBordLogin extends JFrame {
             }
             
         });
-
+      
+        //checkbox
+        cbPassword=new JCheckBox();
+        cbPassword.setBounds(405,320,20,25);
+        cbPassword.setBackground(Color.lightGray);
+        cbPassword.addActionListener((e)->{
+            if (cbPassword.isSelected()){
+                pfPassword.setEchoChar((char)0);
+            }else{
+                pfPassword.setEchoChar('*');
+            }
+        });
+        pnlKanan.add(cbPassword);
         pnlKanan.add(jfUsername);
         pnlKanan.add(lblUsername);
         pnlKanan.add(lblPassword);
@@ -185,8 +210,8 @@ public class DashBordLogin extends JFrame {
     public void panekKiri()
     {
         JLabel lblWelcome;
-        ImageIcon imShoes;
-
+        JLabel imgLabel=loadImage("src/view/admin/aa.jpg");
+        imgLabel.setBounds(9,100,350,350);
 
         //panel
         JPanel pnlKiri=new JPanel();
@@ -201,18 +226,29 @@ public class DashBordLogin extends JFrame {
         lblWelcome.setForeground(Color.gray);
 
         //image
-        
-        
-
-
-
-
-
+       pnlKiri.add(imgLabel);
         pnlKiri.add(lblWelcome);
-      
         c.add(pnlKiri);
 
     }
 
+private JLabel loadImage(String imagePath)
+{
+    try {
+        BufferedImage bImage;
+        Image imgresize;
+        ImageIcon imagIcon=null;
 
+        bImage=ImageIO.read(new File(imagePath));
+
+        imgresize=bImage.getScaledInstance(300,300,Image.SCALE_SMOOTH);
+
+        imagIcon=new ImageIcon(imgresize);
+
+
+        return new JLabel(imagIcon);
+    } catch (Exception e) {
+        return new JLabel("gagal");
+    }
+}
 }

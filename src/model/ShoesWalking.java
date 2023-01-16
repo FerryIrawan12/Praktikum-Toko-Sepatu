@@ -5,31 +5,29 @@ import entity.ShoesWalkingEntity;
 
 public class ShoesWalking {
     
-    private static ArrayList<ShoesWalkingEntity> DB_ShWalking=new ArrayList<>();
+    private static ArrayList<ShoesWalkingEntity> DB_ShoesWalking=new ArrayList<>();
 
-    public static void initialData()
+    public static void create(Object data)
     {
-        DB_ShWalking.add(new ShoesWalkingEntity("vans", "40", 500000, 101,"low"));
-        DB_ShWalking.add(new ShoesWalkingEntity("converse", "40", 600000, 102,"hihgh"));
+        DB_ShoesWalking.add((ShoesWalkingEntity)data);
     }
 
-    public static void create(ShoesWalkingEntity dataShoes)
-    {
-        DB_ShWalking.add(dataShoes);
+    public static void update(int index,Object data){
+        DB_ShoesWalking.set(index, (ShoesWalkingEntity)data);
     }
 
-    public static void updateByKode(int index,ShoesWalkingEntity data)
-    {
-        DB_ShWalking.set(index, data);
+    public static void delete(int index){
+        DB_ShoesWalking.remove(index);
     }
 
-    public static void delete(ShoesWalkingEntity delete)
+    public static void getIndexDB_ShoesWalking(int index)
     {
-        DB_ShWalking.remove(delete);
+        DB_ShoesWalking.get(index);
     }
 
-    public static ArrayList<ShoesWalkingEntity> all()
+    public static ArrayList<ShoesWalkingEntity> read()
     {
-        return DB_ShWalking;
+        return DB_ShoesWalking;
     }
+
 }

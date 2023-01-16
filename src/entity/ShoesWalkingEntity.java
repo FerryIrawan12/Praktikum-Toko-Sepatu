@@ -4,9 +4,13 @@ public class ShoesWalkingEntity extends ShoesEntity
 {
     private String ShoesType;
 
-    public ShoesWalkingEntity(String shoesName, String shoesSize, int priceShoes, int idShoes, String shoesType) {
-        super(shoesName, shoesSize, priceShoes, idShoes);
-        ShoesType = shoesType;
+    public ShoesWalkingEntity()
+    {
+        
+    }
+    public ShoesWalkingEntity(String shoesName, String shoesSize, int priceShoes ,String shoesType) {
+        super(shoesName, shoesSize, priceShoes);
+        this.ShoesType = shoesType;
     }
 
     public String getShoesType() {

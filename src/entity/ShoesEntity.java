@@ -5,15 +5,17 @@ public abstract class ShoesEntity
     private String ShoesName;
     private String ShoesSize;
     private int PriceShoes;
-    private int idShoes;
 
-    public ShoesEntity(String shoesName, String shoesSize, int priceShoes, int idShoes) {
+    public ShoesEntity(String shoesName, String shoesSize, int priceShoes) {
         ShoesName = shoesName;
         ShoesSize = shoesSize;
         PriceShoes = priceShoes;
-        this.idShoes = idShoes;
     }
 
+    public ShoesEntity()
+    {
+
+    }
     public String getShoesName() {
         return ShoesName;
     }
@@ -27,23 +29,17 @@ public abstract class ShoesEntity
     }
 
     public void setShoesName(String shoesName) {
-        ShoesName = shoesName;
+        this.ShoesName = shoesName;
     }
 
     public void setShoesSize(String shoesSize) {
-        ShoesSize = shoesSize;
+        this.ShoesSize = shoesSize;
     }
 
     public void setPriceShoes(int priceShoes) {
-        PriceShoes = priceShoes;
+        this.PriceShoes = priceShoes;
     }
 
-    public int getIdShoes() {
-        return idShoes;
-    }
 
-    public void setIdShoes(int idShoes) {
-        this.idShoes = idShoes;
-    }
 
 }
