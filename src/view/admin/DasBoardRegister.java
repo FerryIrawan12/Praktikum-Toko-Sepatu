@@ -183,8 +183,7 @@ public class DasBoardRegister extends JFrame {
                 String password=pfPassword.getText();
                 String confirmPassword=pfConfirmPassword.getText();
 
-                
-
+            
                 if (tfNama.getText().equals("") && tfUsername.getText().equals("") && 
                 pfPassword.getText().equals("") && pfConfirmPassword.getText().equals("")){
 

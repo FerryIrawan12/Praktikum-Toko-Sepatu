@@ -714,10 +714,10 @@ public class DashBoardCRUD extends JFrame {
             tfNameWalking.setText("");
         });
 
-        btnBacktoLogin=new JButton("back");
+        btnBacktoLogin=new JButton("Logout");
         btnBacktoLogin.setFont(mainFontButton);
         btnBacktoLogin.setBackground(Color.lightGray);
-        btnBacktoLogin.setBounds(10,10,40,20);
+        btnBacktoLogin.setBounds(10,10,70,20);
         btnBacktoLogin.addActionListener((e)->{
             new view_controller().toLogin();
             setVisible(false);
